@@ -1,0 +1,13 @@
+#https://docs.docker.com/compose/gettingstarted/
+
+services:
+  voteapp:
+    build: ./pocketbase #Will go to this path, look for a dockerfile and create a docker image
+    image: svelte-ui:2 #If no docker image with this name exists, it will create one (with the path given in build)
+    ports:
+      - "8090:8090"
+    volumes:
+      - db-data:/app/pb_data
+
+volumes:
+  db-data:
