@@ -1,13 +1,16 @@
 #https://docs.docker.com/compose/gettingstarted/
+# https://pocketbase.io/docs/
 
 services:
   voteapp:
     build: ./pocketbase #Will go to this path, look for a dockerfile and create a docker image
-    image: svelte-ui:2 #If no docker image with this name exists, it will create one (with the path given in build)
+    image: svelte-ui:3 #If no docker image with this name exists, it will create one (with the path given in build)
     ports:
       - "8090:8090"
     volumes:
-      - db-data:/app/pb_data
+      - db-data:/app/pb_data # uses the volume with the name "db-data" this volume will contain all the information which is in the container directory specified after the :
+      - db-migrations:/app/pb_migrations
 
-volumes:
+volumes: #list of volumes which exist and which the services can use to copy their data to
   db-data:
+  db-migrations:
