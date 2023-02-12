@@ -1,5 +1,5 @@
 <script>
-  import CreateNewVote from "./createNewVote/CreateNewVote.svelte";
+  import CreateNewPoll from "./createNewPoll/CreateNewPoll.svelte";
   import Navbar from "./shared components/navbar.svelte";
   import Router, { location, link } from "svelte-spa-router";
   import CastVote from "./castVote/CastVote.svelte";
@@ -10,7 +10,7 @@
 <div id="Content" class="flex justify-center">
   <Router
   routes={{
-    "/": CreateNewVote,
+    "/": CreateNewPoll,
     "/CastVote/:voteId": CastVote,
   }}
 />

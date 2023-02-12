@@ -1,6 +1,5 @@
-import { castVoteServerSide } from "../shared components/Server";
-import type { CastVoteData, Vote } from "../shared components/Types";
+import type { CastVoteCommand } from "./CastVoteCommand";
 
-export function castVote(castVoteData: CastVoteData){
-  return castVoteServerSide(castVoteData);
+export function castVote(castVoteData: CastVoteCommand){
+  console.log("TODO CAST VOTE")
 }

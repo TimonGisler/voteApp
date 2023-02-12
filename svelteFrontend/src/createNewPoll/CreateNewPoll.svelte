@@ -1,8 +1,8 @@
 <script lang="ts">
   import { dndzone } from "svelte-dnd-action";
-  import { saveVote } from "./saveNewVoteApi";
+  import { saveVote } from "./saveNewPollApi";
   import {push} from "svelte-spa-router";
-  import type { Vote, Option } from "./CreateVoteDto";
+  import type { Vote, Option } from "./CreatePollDto";
 
 
   let currentVoteName: string = "t";
