@@ -12,15 +12,16 @@ export async function savePoll(pollToSave: CreatePollDto): Promise<string> {
   let pollId:string = record.id;
 
   //save options of poll
-  pollToSave.options.forEach(option => {
-    pb.collection("option").create(
-      {
-        displayRank: option.order,
-        name: option.option,
-        pollId: pollId
-      }
-    );
+  pollToSave.options.forEach(async option => {
+    let optionToSave =       {
+      displayRank: option.order,
+      name: option.option,
+      pollId: pollId
+    }
+
+    //https://github.com/pocketbase/js-sdk#auto-cancellation
+    pb.collection("option").create(optionToSave, { '$autoCancel': false });
   });
 
-  return "recordId";
+  return pollId;
 }
