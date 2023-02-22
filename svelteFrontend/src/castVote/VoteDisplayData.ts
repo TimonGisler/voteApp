@@ -5,6 +5,6 @@ export interface Vote {
 }
 
 export interface VoteOptions {
-  id: number; //db id
+  id: string; //db id
   optionName: string;
 }

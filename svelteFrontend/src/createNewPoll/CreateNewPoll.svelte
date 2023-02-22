@@ -27,16 +27,16 @@
     return biggestIdInItems + 1;
   }
 
-  function saveOptions() {
+  async function saveOptions() {
     let vote: Vote = {
       name: currentVoteName,
       options: getOptions(),
     };
 
     //Save it to db
-    let voteId = savePoll(vote);
+    let voteId : string = await savePoll(vote);
     //redirect to overview screen
-    push('/CastVote/'+voteId)
+    push('/CastVote/'+ voteId)
   }
 
   function getOptions(): Array<Option> {
