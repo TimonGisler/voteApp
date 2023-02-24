@@ -7,12 +7,18 @@
 
   export let params; //props
   let voteId: string = params.voteId;
-  let voteToDisplay: Promise<Vote> = getVote(voteId);
+  let resolvedVoteToDisplay: Vote;
+
+  // let votePromise : Promise<Vote> = getVote(voteId);
+  getVote(voteId).then((vote) => {
+    resolvedVoteToDisplay = vote;
+  });
 
   let voteToCast: CastVoteCommand;
 
+  // https://svelte.dev/repl/964fdac31cb9496da9ded35002300abb?version=3.55.1
   function handleSort(e) {
-    voteToCast.options = e.detail.items;
+    resolvedVoteToDisplay.options = e.detail.items;
   }
 
   function handleCastVoteButtonClick() {
@@ -21,13 +27,13 @@
 </script>
 
 <div class="form-control gap-7">
-  {#await voteToDisplay}
-    LOL
-  {:then vote}
+  {#if !resolvedVoteToDisplay}
+    loading ...
+  {:else}
     <!-- Name of this vote -->
     <div class="form-control w-full max-w-xs">
       <input
-        value={vote.name}
+        value={resolvedVoteToDisplay.name}
         type="text"
         class="input input-bordered w-full max-w-xs"
         disabled
@@ -37,12 +43,12 @@
     <div
       id="options"
       class="flex gap-4 flex-col"
-      use:dndzone={{ items: vote.options }}
+      use:dndzone={{ items: resolvedVoteToDisplay.options }}
       on:consider={handleSort}
       on:finalize={handleSort}
     >
       <!-- Option -->
-      {#each vote.options as option, index (option.id)}
+      {#each resolvedVoteToDisplay.options as option, index (option.id)}
         <div class="form-control">
           <label class="input-group">
             <span class="cursor-grab">Rank: {index + 1}</span>
@@ -57,13 +63,13 @@
         </div>
       {/each}
     </div>
-  {/await}
 
-  <!-- Save button -->
-  <button class="btn gap-2 btn-success" on:click={handleCastVoteButtonClick}>
-    <span class="material-symbols-outlined"> how_to_vote </span>
-    Cast Vote
-  </button>
+    <!-- Save button -->
+    <button class="btn gap-2 btn-success" on:click={handleCastVoteButtonClick}>
+      <span class="material-symbols-outlined"> how_to_vote </span>
+      Cast Vote
+    </button>
+  {/if}
 </div>
 
 <style>
