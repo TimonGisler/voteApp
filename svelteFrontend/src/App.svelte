@@ -3,6 +3,7 @@
   import Navbar from "./shared components/navbar.svelte";
   import Router, { location, link } from "svelte-spa-router";
   import CastVote from "./castVote/CastVote.svelte";
+  import PollResult from "./pollResultScreen/PollResult.svelte";
 </script>
 
 <Navbar />
@@ -12,6 +13,7 @@
   routes={{
     "/": CreateNewPoll,
     "/CastVote/:voteId": CastVote,
+    "/pollResult/:pollId": PollResult,
   }}
 />
 </div>

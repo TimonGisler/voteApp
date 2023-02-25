@@ -4,12 +4,13 @@
   import { castVote } from "./castVoteApi";
   import type { Vote } from "./VoteDisplayData";
   import type { CastVoteCommand, VoteOptionToCast } from "./CastVoteCommand";
+  import { push } from "svelte-spa-router";
 
   export let params; //props
-  let voteId: string = params.voteId;
+  let pollId: string = params.voteId;
   let voteToDisplay: Vote;
 
-  getVote(voteId).then((vote) => {
+  getVote(pollId).then((vote) => {
     voteToDisplay = vote;
   });
 
@@ -21,6 +22,8 @@
   function handleCastVoteButtonClick() {
     let voteToCast: CastVoteCommand = getCastVoteCommand();
     castVote(voteToCast);
+
+    push('/pollResult/' + pollId);
   }
 
   // Convert the vote that is displayed to the vote that should be casted
@@ -28,7 +31,7 @@
   function getCastVoteCommand() {
     let voteToCast: CastVoteCommand;
     voteToCast = {
-      voteId: voteId,
+      voteId: pollId,
       options: voteToDisplay.options.map((option) => {
         return {
           optionId: option.id,
