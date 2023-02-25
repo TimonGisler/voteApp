@@ -1,10 +1,10 @@
 export interface CastVoteCommand {
-    voteId:number;
+    voteId:string;
     options: Array<VoteOptionToCast>;
   }
   
   export interface VoteOptionToCast {
-    optionId: number;
+    optionId: string;
     rank: number; // which rank the user gave this option
   }
   

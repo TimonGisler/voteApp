@@ -7,33 +7,47 @@
 
   export let params; //props
   let voteId: string = params.voteId;
-  let resolvedVoteToDisplay: Vote;
+  let voteToDisplay: Vote;
 
-  // let votePromise : Promise<Vote> = getVote(voteId);
   getVote(voteId).then((vote) => {
-    resolvedVoteToDisplay = vote;
+    voteToDisplay = vote;
   });
-
-  let voteToCast: CastVoteCommand;
 
   // https://svelte.dev/repl/964fdac31cb9496da9ded35002300abb?version=3.55.1
   function handleSort(e) {
-    resolvedVoteToDisplay.options = e.detail.items;
+    voteToDisplay.options = e.detail.items;
   }
 
   function handleCastVoteButtonClick() {
+    let voteToCast: CastVoteCommand = getCastVoteCommand();
     castVote(voteToCast);
+  }
+
+  // Convert the vote that is displayed to the vote that should be casted
+  // rank will be the current display order
+  function getCastVoteCommand() {
+    let voteToCast: CastVoteCommand;
+    voteToCast = {
+      voteId: voteId,
+      options: voteToDisplay.options.map((option) => {
+        return {
+          optionId: option.id,
+          rank: voteToDisplay.options.indexOf(option) + 1,
+        } as VoteOptionToCast;
+      }),
+    };
+    return voteToCast;
   }
 </script>
 
 <div class="form-control gap-7">
-  {#if !resolvedVoteToDisplay}
+  {#if !voteToDisplay}
     loading ...
   {:else}
     <!-- Name of this vote -->
     <div class="form-control w-full max-w-xs">
       <input
-        value={resolvedVoteToDisplay.name}
+        value={voteToDisplay.name}
         type="text"
         class="input input-bordered w-full max-w-xs"
         disabled
@@ -43,12 +57,12 @@
     <div
       id="options"
       class="flex gap-4 flex-col"
-      use:dndzone={{ items: resolvedVoteToDisplay.options }}
+      use:dndzone={{ items: voteToDisplay.options }}
       on:consider={handleSort}
       on:finalize={handleSort}
     >
       <!-- Option -->
-      {#each resolvedVoteToDisplay.options as option, index (option.id)}
+      {#each voteToDisplay.options as option, index (option.id)}
         <div class="form-control">
           <label class="input-group">
             <span class="cursor-grab">Rank: {index + 1}</span>
