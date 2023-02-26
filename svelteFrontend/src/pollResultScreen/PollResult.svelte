@@ -11,12 +11,11 @@ let votesToDisplay = [
 
 <div class="form-control gap-7">
     <!-- Name of this vote input -->
-    <div class="form-control w-full max-w-xs">
+    <div class="form-control w-full">
       <input
         bind:value={name}
         type="text"
-        placeholder="Name of Vote"
-        class="input input-bordered w-full max-w-xs"
+        class="input input-bordered w-full text-center"
         disabled
       />
     </div>
@@ -33,6 +32,7 @@ let votesToDisplay = [
               class="input input-bordered"
               disabled
             />
+            <span class="cursor-grab">Votes: 99</span>
           </label>
         </div>
       {/each}
