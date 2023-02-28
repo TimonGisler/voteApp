@@ -1,5 +1,5 @@
 export interface CastVoteCommand {
-    voteId:string;
+    pollId:string;
     options: Array<VoteOptionToCast>;
   }
   
