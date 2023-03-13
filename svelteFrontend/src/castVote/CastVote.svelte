@@ -31,7 +31,7 @@
   function getCastVoteCommand() {
     let voteToCast: CastVoteCommand;
     voteToCast = {
-      voteId: pollId,
+      pollId: pollId,
       options: voteToDisplay.options.map((option) => {
         return {
           optionId: option.id,
@@ -44,7 +44,8 @@
 </script>
 
 <div class="form-control gap-7">
-  {#if !voteToDisplay}
+  <!-- if voteToDisplay is falsy (is not yet set for example (because the promise has not yet resolve)) display loading... -->
+  {#if !voteToDisplay} 
     loading ...
   {:else}
     <!-- Name of this vote -->
