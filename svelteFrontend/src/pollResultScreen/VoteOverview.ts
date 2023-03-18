@@ -1,9 +1,9 @@
-export interface VoteOverview {
-    voteTitle: string;
-    options: Array<Option>;
-    }
+export interface PollOverview {
+  pollTitle: string;
+  options: Array<Option>;
+}
 
 export interface Option {
-    optionName: string;
-    numberOfVotes: number;
-    }
+  optionName: string;
+  averageRank: number;
+}

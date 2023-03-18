@@ -1,12 +1,12 @@
 <script lang="ts">
   import { getVoteOverview } from "./getVoteOverview";
-  import type { VoteOverview } from "./VoteOverview";
+  import type { PollOverview } from "./VoteOverview";
 
   export let params; //props
   let pollId: string = params.pollId;
   let name: string = "TODO TGIS ADD NAME LOL";
 
-  let voteToDisplay: VoteOverview;
+  let voteToDisplay: PollOverview;
   getVoteOverview(pollId).then((vote) => {
     voteToDisplay = vote;
   });
@@ -41,7 +41,7 @@
             class="input input-bordered"
             disabled
           />
-          <span class="cursor-grab">Votes: 99</span>
+          <span class="cursor-grab">Average rank: {option.averageRank}</span>
         </label>
       </div>
     {/each}
